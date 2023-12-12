@@ -12,9 +12,54 @@
     <h2>{{ story.title }}</h2>
     <h4>{{ story.author }}</h4>
     <div id="story-content">
-        <img src="{% static '/news/images/placeholder-5.jpg' %}">
+
+        
+        {% if story.image %}
+        <img src="{{ story.image }}"> 
+        {% else %}
+            <img src="{% static '/news/images/placeholder-5.jpg' %}">
+        {% endif %}
         {{ story.content|linebreaks }}
     </div>
 </div>
 
+
+<!-- add comment section, if user if authenticated  then add comment -->
+
+<div id="comment">
+    <h4>Comments</h4>
+    {% for comment in story.comments.all %}
+    <p>{{ comment.author }}</p>
+    <p>{{ comment.content }}</p>
+    <p>{{ comment.pub_date }}</p>
+
+    {% empty %}
+    <p>leave the first comment</p>
+    {% endfor %}
+
+</div>
+
+<div id="addcomment">  
+    
+    {% if request.user.is_authenticated %}
+    <h4>Share your thoughts!</h4>
+
+    <form action="{% url 'news:addComment' story.id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type = "submit", value="submit">
+    </form>
+   {% else %}
+
+   <p>log in or create an account to comment</p>
+
+   {% endif %}
+
+</div>
 {% endblock %}
+
+
+
+   
+     
+
