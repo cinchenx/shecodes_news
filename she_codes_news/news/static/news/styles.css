@@ -1,13 +1,17 @@
 .story-card {
     margin: 2px;
-    border: 1px solid #000;
+    /* border: 1px solid #000; */
+    border: 0.2rem solid #fff;
     padding: 5px;
+    background-color: #fff8e8;
+    border-radius: 30px;
 }
 
 .story-card img {
     width: 100%;
     height: 300px;
     object-fit: cover;
+    border-radius: 30px;
 }
 
 #latest-stories {
@@ -16,7 +20,7 @@
     grid-template-rows: 1fr 1fr 1fr;
     gap: 1px 1px;
     grid-template-areas: "left-1 right-1" "left-1 right-2" "left-1 right-3";
-    max-height: 500px;
+    max-height: fit-content;
 }
 
 #story-card-1 {
@@ -64,16 +68,49 @@
     margin-right: 5px;
 }
 
+#latest-stories .story-card:hover{
+
+    border: 0.2rem solid #fff;
+    border-radius: 2rem;
+    padding: 0.4em;
+    box-shadow: 0 0 .2em #fff,
+            0 0 .2em #fff,
+            0 0 .5em #bc13fe,
+            0 0 0.2em #bc13fe,
+            0 0 0.2em #bc13fe,
+            inset 0 0 .5em #bc13fe; 
+}
+
+
+#h3-container{
+    
+    margin-top: 1em;
+}
+
 #all-stories {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    gap:10px 10px;
+    max-height: 400px;
+    
 }
 
 #all-stories .story-card {
     flex-basis: 32%;
     flex-grow: 1;
+    
 }
+
+
+/* story.html page styling */
+
+#story-wrapper{
+    
+    margin-top: 1em;
+    padding: 1em;
+}
+
 
 #story-content {
     text-align: justify;
@@ -83,4 +120,11 @@
     float: right;
     margin: 0 0 10px 10px;
     width: 50%;
+}
+
+/* author page styling */
+
+#author-container{
+    margin-top:1em;
+    margin-bottom: 1em;
 }

@@ -1,4 +1,5 @@
 from typing import Any
+from django.db import models
 from django.db.models.query import QuerySet
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
@@ -9,6 +10,10 @@ from .models import NewsStory
 from .forms import StoryForm
 from users.models import CustomUser
 from .forms import AddComment
+from django.views.generic import ListView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
+
 
 # consider views like request handlers
 
@@ -23,7 +28,7 @@ class IndexView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['latest_stories'] = NewsStory.objects.all().order_by('-pub_date')[:4]
-        context['all_stories'] = NewsStory.objects.all()
+        context['all_stories'] = NewsStory.objects.all().order_by('-pub_date')
         return context
 
 class StoryView(generic.DetailView):
@@ -83,6 +88,38 @@ class AddCommentView(generic.CreateView):
 
 
 
+# Edit Story
+
+# class EditStoryView(generic.edit.UpdateView):
+#     model = NewsStory
+#     form_class = StoryForm
+#     template_name = 'news/edit.html'
+#     # fields=['title', 'pub_date', 'image', 'content']
+#     success_url = reverse_lazy('news:index')
+
+#     def form_valid(self, form):
+#         form.instance.author = self.request.user
+#         pk=self.kwargs.get("pk")
+#         return super().form_valid(form)
+
+
+class EditStoryView(LoginRequiredMixin, UpdateView):
+    model = NewsStory
+    template_name = 'news/edit.html'
+    fields=['title', 'pub_date', 'image', 'content']
+    context_object_name = 'story'
+    success_url = reverse_lazy('news:index')
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        if obj.author != self.request.user:
+            raise PermissionDenied
+        return obj
+
+    
+  
+
+    
 
     
 

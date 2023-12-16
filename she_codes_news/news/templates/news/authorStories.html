@@ -8,10 +8,10 @@
 
 {% block content %}
 
-<h2>stories by {{ author }}</h2>
 
-    <div id="all-stories"></div>
-    
+<div id="author-container">  
+    <h2>stories by {{ author }}</h2>
+</div>
 
         <!-- <img src="{% static '/news/images/placeholder-5.jpg' %}"> -->
         {% if latest_stories %}
@@ -21,7 +21,7 @@
         {% else %}
         <p>No Stories Available </p>
         {% endif %}
-    </div>
+    
 
 
 {% endblock %}

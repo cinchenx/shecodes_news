@@ -2,12 +2,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form action="" method="post">
-    <!-- single brackets for django function -->
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="submit">
-</form>
+
+<div class="form-container">
+    <h3>Write New Story</h3>
+    <form action="" method="post" class="form">
+        <!-- single brackets for django function -->
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="submit">
+    </form>
+</div>
 
 {% endblock %}
 

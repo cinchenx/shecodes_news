@@ -22,7 +22,13 @@
         {% endif %}
     </div>
 
+    
+    <section id="h3-container">
+        <h3>All Stories</h3>     
+    </section>
     <div id="all-stories">
+          
+      
         {% if latest_stories %}
             {% for story in all_stories %}
                 {% include "./storyCard.html" with story=story %}
@@ -30,6 +36,6 @@
         {% else %}
             <p>No stories are available.</p>
         {% endif %}
+   
     </div>
-
     {% endblock %}
